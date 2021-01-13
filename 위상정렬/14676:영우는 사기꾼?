@@ -1,0 +1,28 @@
+# https://www.acmicpc.net/problem/14676
+import sys
+input = sys.stdin.readline
+
+n, m, k = map(int, input().split())
+tree = [[] for _ in range(n+1)]
+inDegree = [0 for _ in range(n+1)]
+yw_cnt = [0 for _ in range(n + 1)]
+answer = 'King-God-Emperor'
+
+for _ in range(m):
+    i, j = map(int, input().split())
+    tree[i].append(j)
+    inDegree[j] += 1
+
+for _ in range(k):
+    i, j = map(int, input().split())
+    if i == 1:
+        for a in tree[j]:
+            inDegree[a] -= 1
+        if inDegree[j] > 0:
+            answer = 'Lier!'
+        yw_cnt[j] += 1
+    else:
+        if yw_cnt[j] == 0:
+            answer = 'Lier!'
+
+print(answer)
