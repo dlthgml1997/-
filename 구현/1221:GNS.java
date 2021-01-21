@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * https://swexpertacademy.com/main/solvingProblem/solvingProblem.do
+ * [SW Expert Academy]
  * @author leesohee
  *
  */
