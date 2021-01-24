@@ -1,4 +1,4 @@
-# https://swexpertacademy.com/main/solvingProblem/solvingProblem.do
+# https://swexpertacademy.com/main >
 
 def multiple(answer, num, cnt, limit):
     if cnt == limit:

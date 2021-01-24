@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * [SW Expert Academy]
+ * [SW Expert Academy] 1221:GNS
  * @author leesohee
  *
  */
