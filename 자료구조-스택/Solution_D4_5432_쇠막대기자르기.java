@@ -11,24 +11,20 @@ public class Solution_D4_5432_쇠막대기자르기 {
 		char[] ch;
 		for(int t=1; t<= T; t++) {
 			int answer = 0;
-			int cnt = 0;
 			char pre = '(';
 			Stack<Character> stack = new Stack<>();
-			
 			ch = br.readLine().toCharArray();
 			for(char c : ch) {
 				if(c=='(') {
 					pre = '(';
-					cnt++;
 					stack.add(c);
 				} else if(c==')') { 
 					if(pre == '(') {
-						cnt--;
-						answer += cnt;
 						stack.pop();
+						answer += stack.size();
 					} else {
 						answer++;
-						cnt--;
+						stack.pop();
 					}
 					pre = ')';
 				}
