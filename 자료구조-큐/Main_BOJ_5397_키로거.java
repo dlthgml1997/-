@@ -28,7 +28,7 @@ public class Main_BOJ_5397_키로거 {
 						break;
 					}
 					case '-':
-//						if(pw.isEmpty()) break;
+						if(pw.isEmpty()) break;
 						pw.removeLast();
 						break;
 					}
