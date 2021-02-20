@@ -29,7 +29,7 @@ public class Main_BOJ_2615_오목 {
 				int nx = x + dx[i];
 				int ny = y + dy[i];
 				if (!isRange(nx, ny)) continue;
-				if (!visited[nx][ny][i] && countFive(nx, ny, i, map[nx][ny])) {
+				if (!visited[nx][ny][i] && countFive(nx, ny, i, map[x][y])) {
 					if(!isRange(x+dx[i+4], y+dy[i+4])) {
 						System.out.println(map[x][y]);
 						System.out.print((x+1) + " " + (y+1));
