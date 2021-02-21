@@ -49,7 +49,7 @@ public class Main_BOJ_2615_오목 {
 	private static boolean countFive(int x, int y, int dir, int color) {
 		if(color == 0) return false;
 		int cnt = 1;
-		while (isRange(x,y) && map[x][y] == color) {
+		while (map[x][y] == color) {
 			cnt++;
 			visited[x][y][dir] = true;
 			x += dx[dir];
