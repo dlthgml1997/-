@@ -53,7 +53,6 @@ public class Main_BOJ_1202_보석도둑 {
 			while(j < N && dias.get(j).weight <= bag[i]) {
 				diaPq.add(dias.get(j++));
 			}
-			
 			if(diaPq.isEmpty()) continue;
 			total+= diaPq.poll().price;	
 		}
