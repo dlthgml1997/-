@@ -19,24 +19,7 @@ public class Main_BOJ_12865_평범한배낭 {
 			w = Integer.parseInt(st.nextToken());
 			v = Integer.parseInt(st.nextToken());
 			for (int j = 1; j <= K; j++) {
-				if (j < w) {
-					if (i == 1) {
-						continue;
-					} else {
-						dp[i][j] = dp[i - 1][j];
-					}
-				} else {
-					if(i == 1) {
-							dp[i][j] = v;
-							continue;
-					}
-					
-					if (v + dp[i-1][j - w] > dp[i - 1][j]) {
-						dp[i][j] = v + dp[i-1][j-w];
-					} else {
-						dp[i][j] = dp[i - 1][j];
-					}
-				}
+				dp[i][j] = w > j ? dp[i-1][j] : Math.max(v + dp[i - 1][j - w], dp[i - 1][j]);
 			}
 		}
 		System.out.println(dp[N][K]);
