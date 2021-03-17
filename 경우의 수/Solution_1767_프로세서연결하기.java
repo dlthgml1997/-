@@ -1,6 +1,12 @@
 import java.io.*;
 import java.util.*;
-
+/*
+ * A형 시험에 나온 문제 
+ * 1. 코어 담아오기 (가장자리 제외)
+ * 2. createLine (전선 놓을 수 있는지 여부만 확인 (실제로 숫자 할당하지 말기))
+ * 3. setStatus (전선 놓을 수 있을 때 실행, 실제로 숫자 2 할당) - 다음 코어를 살펴보는 재귀함수 호출 후 다시 0으로 재할당
+ * 4. 해당 코어를 연결 안하는 경우도 재귀 호출하기
+ */
 public class Solution_1767_프로세서연결하기 {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
