@@ -4,7 +4,7 @@ import java.util.*;
 public class Main_BOJ_2922_즐거운단어 {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static char[] word;
-	static int total = 0,N;
+	static long total = 0,N;
 	public static void main(String[] args) throws Exception {
 		word = br.readLine().toCharArray();
 		N = word.length;
@@ -21,7 +21,7 @@ public class Main_BOJ_2922_즐거운단어 {
 		System.out.println(makeJoyfulWord(0));
 	}
 
-	private static int makeJoyfulWord(int cnt) {
+	private static long makeJoyfulWord(int cnt) {
 		while(true) {
 			if(cnt == N) {
 				int vowel =0, constant = 0; 
@@ -49,8 +49,8 @@ public class Main_BOJ_2922_즐거운단어 {
 			if(word[cnt] == '_') {
 				total = 0;
 				word[cnt] = 'C'; total += 20 * makeJoyfulWord(cnt+1);
-				word[cnt] = 'L'; total += 1 * makeJoyfulWord(cnt+1);
 				word[cnt] = 'V'; total += 5 * makeJoyfulWord(cnt+1);
+				word[cnt] = 'L'; total += 1 * makeJoyfulWord(cnt+1);
 				word[cnt] = '_';
 				return total;
 			}
