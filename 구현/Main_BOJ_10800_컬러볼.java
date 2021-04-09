@@ -21,8 +21,9 @@ public class Main_BOJ_10800_컬러볼 {
 		}
 		
 		@Override
-		public int compareTo(Ball o) { // 오차순
-			return this.size - o.size;
+		public int compareTo(Ball o) { // 오름차순
+			if(this.size == o.size) return this.color - o.color;
+			else return this.size - o.size;
 		}
 	}
 	
@@ -47,14 +48,13 @@ public class Main_BOJ_10800_컬러볼 {
 			colorSum[ball.color] += ball.size;
 			sizeSum[ball.size] += ball.size;
 			total += ball.size;
+			
 			if(ball.size == presize && ball.color == precolor) {
 				totals[ball.no] = totals[preno];
-			} else if(ball.color == precolor) {
-				totals[ball.no] = total - colorSum[ball.color];
-			} else if(ball.size == presize) {
-				totals[ball.no] = total - sizeSum[ball.size];
+			} else {
+				totals[ball.no] = total - colorSum[ball.color] - sizeSum[ball.size];
+				totals[ball.no] += ball.size; 
 			}
-			
 			presize = ball.size;
 			precolor = ball.color;
 			preno = ball.no;
