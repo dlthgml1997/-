@@ -39,11 +39,11 @@ public class Solution_5656_벽돌깨기 {
 		}
 	}
 
-	private static void permutation(int cnt) {
-		if (cnt == balls) {
+	private static void permutation(int cnt) { // 중복 순열 (구슬을 떨어뜨릴 열 balls개 고르기)
+		if (cnt == balls) { // 구슬 떨어뜨릴 열 balls 개가 정해지면 
 			// 공 게임시작
 			gameStart();
-			// 최소 남은개수 갱신
+			// 벽돌 남은 개수 최소 값 갱신
 			minNum = Math.min(minNum, cntBox());
 			// 맵 돌려놓기
 			copyMap();
@@ -56,10 +56,64 @@ public class Solution_5656_벽돌깨기 {
 		}
 	}
 
-	private static void copyMap() {
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				map[i][j] = mapCopy[i][j];
+	private static void gameStart() { // j = 행, turn = 열 
+		int h = N - 1;
+		for (int i = 0; i < balls; i++) {
+			int turn = gameTurn[i]; // 구슬 떨어뜨릴 열을 하나씩 받아온다. 
+			for (int j = 0; j < N; j++) { // 열은 고정 행만 변한다.
+				if (map[j][turn] > 0) { // 타격할 벽돌의 행이 정해짐.
+					h = j;
+					break;
+				}
+			}
+			shotBall(h, turn); // 구슬 떨어뜨리기
+			dropBoxToEmptyArea(); // 벽돌들 아래로 떨어뜨리기
+		}
+	}
+	
+
+	private static void shotBall(int x, int y) {
+		Deque<int[]> deque = new ArrayDeque<>();
+		deque.add(new int[] { x, y, map[x][y] }); // x, y, power
+		map[x][y] = 0;
+		int nx, ny;
+
+		while (!deque.isEmpty()) { // 근접한 모든 유효한 벽돌들의 power만큼 깨뜨리기
+			int[] pos = deque.poll(); // 깨진 벽돌 꺼내기 
+			int power = pos[2];
+			 
+			for (int p = 1; p < power; p++) { // power만큼 영향주기
+				for (int i = 0; i < 4; i++) { // 왼, 상, 우, 하
+					nx = pos[0] + dx[i] * p;
+					ny = pos[1] + dy[i] * p;
+					if (!isRange(nx, ny) || map[nx][ny] == 0)
+						continue;
+					if (map[nx][ny] > 0) {
+						deque.add(new int[] { nx, ny, map[nx][ny] }); // 깨질 벽돌 넣기
+						map[nx][ny]= 0; // 벽돌 깨뜨리기
+						continue;
+					}
+				}
+			}
+		}
+	}
+
+	private static void dropBoxToEmptyArea() {
+		// 1. 큐 방법 (V)
+		// 2. bottom 방법
+		Deque<Integer> deque = new ArrayDeque<Integer>();
+		for (int j = 0; j < M; j++) { // 열
+			for (int i = 0; i < N; i++) { // 행 채우고 
+				if(map[i][j] > 0) {
+					deque.add(map[i][j]);	
+				}
+			} 
+			for(int i= N-1; i>= 0; i--) { // 비우고 
+				if(deque.isEmpty()) {
+					map[i][j] = 0;
+				} else {
+					map[i][j] = deque.pollLast();	
+				}
 			}
 		}
 	}
@@ -75,63 +129,10 @@ public class Solution_5656_벽돌깨기 {
 		return cnt;
 	}
 
-	private static void gameStart() {
-		int h = N - 1;
-		for (int i = 0; i < balls; i++) {
-			int turn = gameTurn[i];
-			for (int j = 0; j < N; j++) { // W는 고정 H만 변한다.
-				if (map[j][turn] > 0) { // 타격할 벽돌 높이 정해짐.
-					h = j;
-					break;
-				}
-			}
-			shotBall(h, turn);
-			dropBoxToEmptyArea();
-		}
-
-	}
-
-	private static void shotBall(int x, int y) {
-		Deque<int[]> deque = new ArrayDeque<>();
-		deque.add(new int[] { x, y, map[x][y] });
-		int nx, ny;
-
-		while (!deque.isEmpty()) { // p <= power
-			int[] pos = deque.poll();
-			int power = pos[2];
-			map[pos[0]][pos[1]] = 0;
-			for (int p = 1; p < power; p++) {
-				for (int i = 0; i < 4; i++) { // 왼상우하
-					nx = pos[0] + dx[i] * p;
-					ny = pos[1] + dy[i] * p;
-					if (!isRange(nx, ny) || map[nx][ny] == 0)
-						continue;
-					if (map[nx][ny] > 0) {
-						deque.add(new int[] { nx, ny, map[nx][ny] });
-						map[nx][ny]= 0;
-						continue;
-					}
-				}
-			}
-		}
-	}
-
-	private static void dropBoxToEmptyArea() {
-		// 1. 큐
-		// 2. bottom
-		Deque<Integer> deque = new ArrayDeque<Integer>();
-		for (int j = 0; j < M; j++) { // 열
-			for (int i = 0; i < N; i++) { // 행 채우고 
-				if(map[i][j] > 0) {
-					deque.add(map[i][j]);	
-				}
-			} 
-			for(int i= N-1; i>= 0; i--) { // 비우고 
-				if(deque.isEmpty()) {
-					map[i][j] = 0;
-				} else {
-					map[i][j] = deque.pollLast();	
-				}
+	private static void copyMap() {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				map[i][j] = mapCopy[i][j];
 			}
 		}
 	}
